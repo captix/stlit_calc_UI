@@ -1,0 +1,64 @@
+import streamlit as st
+import streamlit.components.v1 as components
+
+# Read the JS file
+with open("script.js", "r") as f:
+    js_code = f.read()
+# Inject it
+components.html(f"<script>{js_code}</script>", height=0, width=0)
+
+# Function to load external CSS
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+# Call the function at the start of your app
+local_css("style.css")
+
+# Setup
+if "expression" not in st.session_state:
+    st.session_state.expression = ""
+
+
+st.title("Basic Calculator")
+
+
+st.set_page_config(layout="centered")
+left, center, right = st.columns([2, 1, 2])
+
+
+# The Display
+st.text_input("Result", value=st.session_state.expression, 
+             label_visibility="collapsed", disabled=True,width="stretch")
+
+# The Grid
+buttons = [
+    ['7', '8', '9', '/'],
+    ['4', '5', '6', '\*'],
+    ['1', '2', '3', '\-'],
+    ['C', '0', '=', '\+']
+]
+
+for row in buttons:
+    cols = st.columns(len(row), gap="small")
+    for col, label in zip(cols, row):
+        # We keep 'label' as-is for the UI so you can see the symbol
+        if col.button(label, use_container_width=True):
+            
+            # 1. Logic for Clear
+            if "C" in label: # Using 'in' handles if C is escaped too
+                st.session_state.expression = ""
+            
+            # 2. Logic for Calculate
+            elif "=" in label:
+                try:
+                    st.session_state.expression = str(eval(st.session_state.expression))
+                except Exception as e:
+                    st.session_state.expression = "Error"
+            
+            # 3. Logic for adding to the screen
+            else:
+                # strip the backslash before it hits the text_input / eval logic
+                st.session_state.expression += label.replace('\\', '')
+
+            st.rerun()

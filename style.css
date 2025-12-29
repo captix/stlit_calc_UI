@@ -1,0 +1,57 @@
+/* reset button styles */
+div.stButton div[data-testid="stMarkdownContainer"] {
+    font-size: inherit !important;
+}
+div.stButton button p {
+    font-weight: inherit !important;
+}
+
+/* style.css */
+.stAppViewMain .block-container {
+    max-width: 350px;
+    margin: auto;
+    padding-top: 2rem;
+}
+
+/* Make buttons uniform and "calculator-like" */
+div.stButton button {
+    width: 100% !important;
+    height: 60px !important;
+    font-size: 22px !important;
+    font-weight: bold !important;
+    background-color: rgb(134, 187, 217);
+}
+
+div.stButton button:hover {
+    background-color: rgb(72, 149, 193);
+}
+
+div.stButton button:active {
+    background-color: rgb(3, 110, 172);
+}
+
+/* Tighten the vertical gap between rows */
+[data-testid="stVerticalBlock"] {
+    gap: 0.5rem !important;
+}
+
+/* Ensure the inner wrappers don't collapse back to 2.5rem */
+[data-testid="stTextInputRootElement"] {
+    height: auto !important;
+}
+
+/* Target the input within the Streamlit Text Input wrapper */
+div.stTextInput input {
+    background-color: #000000 !important;
+    color: #00FF00 !important;     
+    -webkit-text-fill-color: #00FF00 !important;
+    opacity: 1 !important;
+    font-family: 'Courier New', monospace !important;
+    font-size: 2rem !important;
+    text-align: right !important;
+    border: 1px solid #464855 !important;
+
+    /* box-sizing: border-box !important;  */
+    padding: 10px 20px !important;
+
+}
